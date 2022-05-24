@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./screens/LandingPage";
 import Dashboard from "./screens/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute";
+import Help from "./screens/Help";
 
 const App = () => {
     return (
@@ -15,6 +16,14 @@ const App = () => {
                 element={
                     <PrivateRoute>
                         <Dashboard />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/help"
+                element={
+                    <PrivateRoute>
+                        <Help />
                     </PrivateRoute>
                 }
             />

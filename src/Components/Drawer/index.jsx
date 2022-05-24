@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 // Context
 import { useAuth } from "../../context/AuthContext";
+import { useMd } from "../../context/MdContext";
 
 // Icons
 import { AiOutlineCodeSandbox } from "react-icons/ai";
@@ -18,6 +19,8 @@ import { MdLogout } from "react-icons/md";
 
 const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle }) => {
     const { logout } = useAuth();
+
+    const { title, titleValue, acceptTitleValue } = useMd();
 
     const navigate = useNavigate();
 
@@ -40,6 +43,21 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
         },
     ];
 
+    const checkTitleValue = () => {
+        if (title !== titleValue) {
+            acceptTitleValue(titleValue);
+        }
+    };
+
+    const handleClickSandbox = () => {
+        navigate("/dashboard");
+    };
+
+    const handleClickHelp = (callback) => {
+        navigate("/help");
+        callback();
+    };
+
     const handleLogout = () => {
         logout();
         localStorage.removeItem("user");
@@ -49,6 +67,12 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
     const container = window !== undefined ? () => window().document.body : undefined;
 
     const handleClickNavItem = (name) => {
+        if (name === "Sandbox") {
+            handleClickSandbox();
+        }
+        if (name === "Help") {
+            handleClickHelp(checkTitleValue);
+        }
         if (name === "Logout") {
             handleLogout();
         }

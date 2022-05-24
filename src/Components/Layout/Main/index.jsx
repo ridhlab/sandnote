@@ -30,7 +30,6 @@ const LayoutMain = ({ children }) => {
                 <>
                     <ResponsiveDrawer drawerWidth={drawerWidth} mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
                     {/* Main App */}
-
                     <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "100%" }}>
                         <Toolbar />
                         {children}

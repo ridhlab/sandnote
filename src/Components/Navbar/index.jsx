@@ -43,7 +43,7 @@ const Navbar = ({ handleDrawerToggle, drawerWidth }) => {
                         </IconButton>
                     )}
                     {!isLoadingAuth && (
-                        <Link to={() => (isLogin ? "/dashboard" : "/")}>
+                        <Link to={isLogin ? "/dashboard" : "/"}>
                             <Logo />
                         </Link>
                     )}

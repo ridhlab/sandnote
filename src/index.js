@@ -13,37 +13,28 @@ import theme from "./themes/config";
 
 // Provider Context
 import { AuthContextProvider } from "./context/AuthContext";
+import { MdContextProvider } from "./context/MdContext";
 
 // Redux
 import { Provider } from "react-redux";
 
-// Firebase
-import firebase from "firebase/app";
-import { createFirestoreInstance } from "redux-firestore";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+// Store
 import store from "./service/redux";
-
-// const rrfProps = {
-//     firebase,
-//     config: {},
-//     dispatch: store.dispatch,
-//     createFirestoreInstance,
-// };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            {/* <ReactReduxFirebaseProvider {...rrfProps}> */}
             <BrowserRouter>
                 <AuthContextProvider>
-                    <ThemeProvider theme={theme}>
-                        <App />
-                    </ThemeProvider>
+                    <MdContextProvider>
+                        <ThemeProvider theme={theme}>
+                            <App />
+                        </ThemeProvider>
+                    </MdContextProvider>
                 </AuthContextProvider>
             </BrowserRouter>
-            {/* </ReactReduxFirebaseProvider> */}
         </Provider>
     </React.StrictMode>
 );
