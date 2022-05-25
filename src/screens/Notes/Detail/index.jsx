@@ -25,16 +25,13 @@ const NoteDetail = () => {
 
     const [note, setNote] = useState({});
 
-    const { GetUserResult, GetUserLoading, GetUserError } = useSelector((state) => state.user);
+    const { GetUserResult, GetUserLoading } = useSelector((state) => state.user);
 
     useEffect(() => {
-        console.log(GetUserResult);
         if (GetUserResult) {
             setNote(GetUserResult.notes[noteId - 1]);
         }
     }, [GetUserResult]);
-
-    console.log(note);
 
     return (
         <LayoutMain>

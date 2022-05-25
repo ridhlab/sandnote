@@ -14,25 +14,19 @@ import Navbar from "../../Components/Navbar";
 import GoogleLogo from "../../assets/logo/google-logo.png";
 
 // React Router
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Context
 import { useAuth } from "../../context/AuthContext";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { CheckUser, CreateUser } from "../../service/redux/action";
+import { useDispatch } from "react-redux";
+import { CheckUser } from "../../service/redux/action";
 
 const LandingPage = () => {
-    const { signInWithGoogle, currentUser, isLogin, isLoadingAuth } = useAuth();
+    const { signInWithGoogle, isLogin, isLoadingAuth } = useAuth();
 
     const dispatch = useDispatch();
-
-    const { GetUserResult, GetUserLoading, GetUserError } = useSelector((state) => state.user);
-
-    console.log("GetUserResult", GetUserResult);
-    console.log("GetUserLoading", GetUserLoading);
-    console.log("GetUserError", GetUserError);
 
     const navigate = useNavigate();
 
@@ -42,7 +36,6 @@ const LandingPage = () => {
                 const { user: userData } = user;
                 const { uid, displayName, email, emailVerified, isAnonymous, photoURL, accessToken } = userData;
                 localStorage.setItem("user", JSON.stringify({ token: accessToken }));
-
                 dispatch(
                     CheckUser(uid, {
                         uid,

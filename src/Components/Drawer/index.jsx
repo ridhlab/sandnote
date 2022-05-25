@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 // Context
 import { useAuth } from "../../context/AuthContext";
-import { useMd } from "../../context/MdContext";
 
 // Icons
 import { AiOutlineCodeSandbox } from "react-icons/ai";
@@ -19,8 +18,6 @@ import { MdLogout } from "react-icons/md";
 
 const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle }) => {
     const { logout } = useAuth();
-
-    const { title, titleValue, acceptTitleValue } = useMd();
 
     const navigate = useNavigate();
 

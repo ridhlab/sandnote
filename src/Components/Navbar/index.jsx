@@ -16,11 +16,10 @@ import { useAuth } from "../../context/AuthContext";
 import { HiMenuAlt2 } from "react-icons/hi";
 
 const Navbar = ({ handleDrawerToggle, drawerWidth }) => {
-    const { currentUser, isLogin, isLoadingAuth } = useAuth();
+    const { isLogin, isLoadingAuth } = useAuth();
 
     const location = useLocation();
 
-    console.log(currentUser, isLogin);
     return (
         <AppBar
             position="fixed"

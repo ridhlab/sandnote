@@ -20,9 +20,6 @@ import { useMd } from "../../context/MdContext";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateUser, ResetUpdate } from "../../service/redux/action";
 
-// Icon
-import { AiOutlineEdit } from "react-icons/ai";
-
 // Library
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -40,11 +37,9 @@ const Dashboard = () => {
 
     const { open, vertical, horizontal } = snackbar;
 
-    const { currentUser, isLogin, isLoadingAuth } = useAuth();
+    const { currentUser } = useAuth();
 
     const { titleValue, bodyText, handleChangeTitle, handleChangeBodyText, resetMd } = useMd();
-
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -64,8 +59,6 @@ const Dashboard = () => {
     };
 
     const handleClickAddNotes = (title, bodyText) => {
-        console.log(notes);
-        console.log(bodyText, title);
         if (bodyText !== "") {
             const newNote = {
                 title,
@@ -77,7 +70,6 @@ const Dashboard = () => {
                 ...GetUserResult,
                 notes: [...notes, newNote],
             };
-            console.log(updatedData);
             dispatch(UpdateUser(uid, updatedData));
         }
     };
@@ -102,16 +94,6 @@ const Dashboard = () => {
             dispatch(ResetUpdate());
         }
     }, [UpdateUserResult]);
-
-    console.log("currentUser", currentUser);
-    console.log("titleValue", titleValue);
-    console.log("bodyText", bodyText);
-
-    console.log("GetUserResult", GetUserResult);
-    console.log("GetUserLoading", GetUserLoading);
-    console.log("GetUserError", GetUserError);
-
-    console.log("UpdateUserResult", UpdateUserResult);
 
     return (
         <LayoutMain>

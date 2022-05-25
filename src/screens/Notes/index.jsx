@@ -13,13 +13,11 @@ import LayoutMain from "../../Components/Layout/Main";
 import { useSelector } from "react-redux";
 
 const Notes = () => {
-    const { GetUserResult, GetUserLoading, GetUserError } = useSelector((state) => state.user);
+    const { GetUserResult, GetUserLoading } = useSelector((state) => state.user);
 
     const navigate = useNavigate();
 
     const { notes } = GetUserResult;
-
-    console.log(GetUserResult);
 
     return (
         <LayoutMain>

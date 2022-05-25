@@ -17,7 +17,6 @@ const MdContextProvider = ({ children }) => {
     const [bodyText, setBodyText] = useState("");
 
     const handleChangeTitle = (value) => {
-        console.log(value);
         setTitleValue(value);
     };
 
