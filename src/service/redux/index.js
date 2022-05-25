@@ -5,8 +5,8 @@ import { firebaseReducer, firestoreReducer, getFirebase, ReactReduxFirebaseProvi
 import { authReducer, noteReducer } from "./reducer/";
 
 const rootReducer = combineReducers({
-    firebase: firebaseReducer,
-    firestore: firestoreReducer,
+    // firebase: firebaseReducer,
+    // firestore: firestoreReducer,
     auth: authReducer,
     // notes: noteReducer,
 });

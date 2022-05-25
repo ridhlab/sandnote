@@ -13,4 +13,4 @@ const CreateUser = (data) => {
     };
 };
 
-export { CreateUser };
+export default CreateUser;

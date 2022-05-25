@@ -1,3 +1,4 @@
 const CREATE_USER = "CREATE_USER";
+const GET_USER = "GET_USER";
 
-export { CREATE_USER };
+export { CREATE_USER, GET_USER };

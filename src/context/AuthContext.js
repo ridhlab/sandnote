@@ -4,6 +4,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../service/firebase/init";
 
+// Store
+import { useDispatch } from "react-redux";
+import { GetUser } from "../service/redux/action";
+
 const AuthContext = createContext({
     currentUser: null,
     signInWithGoogle: () => Promise,
@@ -21,12 +25,15 @@ const AuthContextProvider = ({ children }) => {
 
     const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             setIsLoadingAuth(false);
             setCurrentUser(user);
             if (user !== null) {
                 setIsLogin(true);
+                dispatch(GetUser(user.uid));
             }
         });
     }, []);

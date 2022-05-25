@@ -21,7 +21,7 @@ import { useAuth } from "../../context/AuthContext";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { CreateUser } from "../../service/redux/action/auth/CreateUser";
+import { CreateUser } from "../../service/redux/action";
 
 const LandingPage = () => {
     const { signInWithGoogle, currentUser, isLogin, isLoadingAuth } = useAuth();
