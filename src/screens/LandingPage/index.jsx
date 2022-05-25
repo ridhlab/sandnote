@@ -21,18 +21,18 @@ import { useAuth } from "../../context/AuthContext";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { CreateUser } from "../../service/redux/action";
+import { CheckUser, CreateUser } from "../../service/redux/action";
 
 const LandingPage = () => {
     const { signInWithGoogle, currentUser, isLogin, isLoadingAuth } = useAuth();
 
     const dispatch = useDispatch();
 
-    const { authData, authLoading, authError } = useSelector((state) => state.auth);
+    const { GetUserResult, GetUserLoading, GetUserError } = useSelector((state) => state.user);
 
-    console.log("authData", authData);
-    console.log("authLoading", authLoading);
-    console.log("authError", authError);
+    console.log("GetUserResult", GetUserResult);
+    console.log("GetUserLoading", GetUserLoading);
+    console.log("GetUserError", GetUserError);
 
     const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const LandingPage = () => {
                 localStorage.setItem("user", JSON.stringify({ token: accessToken }));
 
                 dispatch(
-                    CreateUser({
+                    CheckUser(uid, {
                         uid,
                         displayName,
                         email,

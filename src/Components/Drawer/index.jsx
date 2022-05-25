@@ -47,6 +47,10 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
         navigate("/dashboard");
     };
 
+    const handleCLickNotes = () => {
+        navigate("/notes");
+    };
+
     const handleClickHelp = () => {
         navigate("/help");
     };
@@ -62,6 +66,9 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
     const handleClickNavItem = (name) => {
         if (name === "Sandbox") {
             handleClickSandbox();
+        }
+        if (name === "Notes") {
+            handleCLickNotes();
         }
         if (name === "Help") {
             handleClickHelp();

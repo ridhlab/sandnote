@@ -65,16 +65,21 @@ const Dashboard = () => {
 
     const handleClickAddNotes = (title, bodyText) => {
         console.log(notes);
-        const newNote = {
-            title,
-            bodyText,
-            bgColor: "#FFF",
-        };
-        const updatedData = {
-            ...GetUserResult,
-            notes: [...notes, newNote],
-        };
-        dispatch(UpdateUser(uid, updatedData));
+        console.log(bodyText, title);
+        if (bodyText !== "") {
+            const newNote = {
+                title,
+                bodyText,
+                timestamp: Date.now(),
+                bgColor: "#FFF",
+            };
+            const updatedData = {
+                ...GetUserResult,
+                notes: [...notes, newNote],
+            };
+            console.log(updatedData);
+            dispatch(UpdateUser(uid, updatedData));
+        }
     };
 
     const handleClose = (event, reason) => {
