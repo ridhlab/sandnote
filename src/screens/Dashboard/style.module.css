@@ -1,0 +1,29 @@
+.formTitle{
+    display: flex;
+    align-items: center;
+}
+
+.editorInput{
+    width:100%;
+    height: 80%;
+    resize:none;
+    border:none;
+    outline-color: #5463FF;
+    font-size:17px;
+}
+
+.editorInput:focus{
+    outline: none;
+}
+
+.wrapperMdPreview{
+    height: 100%;
+    overflow-y: auto;
+}
+
+@media only screen and (min-width: 900px) {
+    /* For mobile phones: */
+    .editorInput{
+        height: 100%;
+    }
+}
