@@ -43,19 +43,12 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
         },
     ];
 
-    const checkTitleValue = () => {
-        if (title !== titleValue) {
-            acceptTitleValue(titleValue);
-        }
-    };
-
     const handleClickSandbox = () => {
         navigate("/dashboard");
     };
 
-    const handleClickHelp = (callback) => {
+    const handleClickHelp = () => {
         navigate("/help");
-        callback();
     };
 
     const handleLogout = () => {
@@ -71,7 +64,7 @@ const ResponsiveDrawer = ({ drawerWidth, window, mobileOpen, handleDrawerToggle 
             handleClickSandbox();
         }
         if (name === "Help") {
-            handleClickHelp(checkTitleValue);
+            handleClickHelp();
         }
         if (name === "Logout") {
             handleLogout();

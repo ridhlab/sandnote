@@ -6,15 +6,13 @@ const MdContext = createContext({
     bodyText: String,
     handleChangeTitle: Function,
     handleChangeBodyText: Function,
-    acceptTitleValue: Function,
+    resetMd: Function,
 });
 
 const useMd = () => useContext(MdContext);
 
 const MdContextProvider = ({ children }) => {
-    const [title, setTitle] = useState("Untitled");
-
-    const [titleValue, setTitleValue] = useState(title);
+    const [titleValue, setTitleValue] = useState("Untitled");
 
     const [bodyText, setBodyText] = useState("");
 
@@ -27,17 +25,17 @@ const MdContextProvider = ({ children }) => {
         setBodyText(value);
     };
 
-    const acceptTitleValue = (value) => {
-        setTitle(value);
+    const resetMd = () => {
+        setTitleValue("Untitled");
+        setBodyText("");
     };
 
     const value = {
-        title,
         titleValue,
         bodyText,
         handleChangeTitle,
         handleChangeBodyText,
-        acceptTitleValue,
+        resetMd,
     };
 
     return <MdContext.Provider value={value}>{children}</MdContext.Provider>;

@@ -1,4 +1,4 @@
-import { CREATE_USER, GET_USER } from "../../action/types";
+import { CREATE_USER, GET_USER, UPDATE_USER } from "../../action/types";
 
 const initState = {
     CreateUserResult: false,
@@ -8,9 +8,13 @@ const initState = {
     GetUserResult: false,
     GetUserLoading: false,
     GetUserError: false,
+
+    UpdateUserResult: false,
+    UpdateUserLoading: false,
+    UpdateUserError: false,
 };
 
-const authReducer = (state = initState, action) => {
+const userReducer = (state = initState, action) => {
     switch (action.type) {
         case CREATE_USER:
             return {
@@ -26,9 +30,16 @@ const authReducer = (state = initState, action) => {
                 GetUserLoading: action.payload.loading,
                 GetUserError: action.payload.errorMessage,
             };
+        case UPDATE_USER:
+            return {
+                ...state,
+                UpdateUserResult: action.payload.data,
+                UpdateUserLoading: action.payload.loading,
+                UpdateUserError: action.payload.errorMessage,
+            };
         default:
             return state;
     }
 };
 
-export default authReducer;
+export default userReducer;

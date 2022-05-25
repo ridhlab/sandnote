@@ -1,4 +1,5 @@
-import CreateUser from "./auth/CreateUser";
-import GetUser from "./auth/GetUser";
+import { CreateUser } from "./user/CreateUser";
+import GetUser from "./user/GetUser";
+import { UpdateUser, ResetUpdate } from "./user/UpdateUser";
 
-export { CreateUser, GetUser };
+export { CreateUser, GetUser, UpdateUser, ResetUpdate };

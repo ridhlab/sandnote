@@ -3,7 +3,8 @@ import styles from "./style.module.css";
 import "./style.css";
 
 // Mui Material
-import { Box, Button, Typography, TextField } from "@mui/material";
+import { Box, Button, Typography, TextField, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 // React Router
 import { Navigate, useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ import { useMd } from "../../context/MdContext";
 
 // Store
 import { useDispatch, useSelector } from "react-redux";
+import { UpdateUser, ResetUpdate } from "../../service/redux/action";
 
 // Icon
 import { AiOutlineEdit } from "react-icons/ai";
@@ -25,18 +27,33 @@ import { AiOutlineEdit } from "react-icons/ai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const Dashboard = () => {
+    const [snackbar, setSnackbar] = useState({
+        open: false,
+        vertical: "bottom",
+        horizontal: "right",
+    });
+
+    const { open, vertical, horizontal } = snackbar;
+
     const { currentUser, isLogin, isLoadingAuth } = useAuth();
 
-    const { title, titleValue, bodyText, handleChangeTitle, handleChangeBodyText, acceptTitleValue } = useMd();
-
-    const { GetUserResult, GetUserLoading, GetUserError } = useSelector((state) => state.auth);
+    const { titleValue, bodyText, handleChangeTitle, handleChangeBodyText, resetMd } = useMd();
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
+    const { GetUserResult, GetUserLoading, GetUserError, UpdateUserResult, UpdateUserLoading, UpdateUserError } = useSelector((state) => state.user);
+
+    const { uid, notes } = GetUserResult;
+
     const handleSubmitTitle = (e) => {
         e.preventDefault();
-        acceptTitleValue(titleValue);
     };
 
     const handleKeyUp = (event) => {
@@ -46,18 +63,50 @@ const Dashboard = () => {
         }
     };
 
+    const handleClickAddNotes = (title, bodyText) => {
+        console.log(notes);
+        const newNote = {
+            title,
+            bodyText,
+            bgColor: "#FFF",
+        };
+        const updatedData = {
+            ...GetUserResult,
+            notes: [...notes, newNote],
+        };
+        dispatch(UpdateUser(uid, updatedData));
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setSnackbar((prevState) => ({
+            ...prevState,
+            open: false,
+        }));
+    };
+
     useEffect(() => {
-        // dispatch(GetUser(currentUser.uid));
-    }, []);
+        if (UpdateUserResult) {
+            setSnackbar((prevState) => ({
+                ...prevState,
+                open: true,
+            }));
+            resetMd();
+            dispatch(ResetUpdate());
+        }
+    }, [UpdateUserResult]);
 
     console.log("currentUser", currentUser);
-    console.log("title", title);
     console.log("titleValue", titleValue);
     console.log("bodyText", bodyText);
 
     console.log("GetUserResult", GetUserResult);
     console.log("GetUserLoading", GetUserLoading);
     console.log("GetUserError", GetUserError);
+
+    console.log("UpdateUserResult", UpdateUserResult);
 
     return (
         <LayoutMain>
@@ -92,9 +141,14 @@ const Dashboard = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Button variant="contained" sx={{ textTransform: "none" }} fullWidth>
+                <Button variant="contained" sx={{ textTransform: "none" }} fullWidth onClick={() => handleClickAddNotes(titleValue, bodyText)}>
                     Add Notes
                 </Button>
+                <Snackbar open={open} anchorOrigin={{ vertical, horizontal }} autoHideDuration={3000}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+                        Notes Added
+                    </Alert>
+                </Snackbar>
             </Box>
         </LayoutMain>
     );

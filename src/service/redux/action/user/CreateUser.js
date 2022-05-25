@@ -7,10 +7,11 @@ const CreateUser = (data) => {
         dispatch({ type: CREATE_USER, payload: { loading: true, data: false, errorMessage: false } });
         try {
             await setDoc(doc(db, "users", data.uid), data);
+            dispatch({ type: CREATE_USER, payload: { loading: false, data: true, errorMessage: false } });
         } catch (err) {
             dispatch({ type: CREATE_USER, payload: { loading: false, data: false, errorMessage: err.message } });
         }
     };
 };
 
-export default CreateUser;
+export { CreateUser };

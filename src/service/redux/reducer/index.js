@@ -1,4 +1,4 @@
-import authReducer from "./auth";
+import userReducer from "./user";
 import noteReducer from "./notes";
 
-export { authReducer, noteReducer };
+export { userReducer, noteReducer };
