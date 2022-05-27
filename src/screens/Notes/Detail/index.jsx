@@ -46,9 +46,7 @@ const NoteDetail = () => {
 
     const { GetUserResult, GetUserLoading, UpdateUserResult } = useSelector((state) => state.user);
 
-    const handleClickUpdate = () => {
-        console.log(titleValue);
-        console.log(bodyText);
+    const handleClickUpdate = async () => {
         const updatedNote = { ...note, title: titleValue, bodyText, timestamp: Date.now() };
         const updatedNotes = GetUserResult.notes.map((note) => {
             if (note.uid === updatedNote.uid) {
@@ -56,10 +54,25 @@ const NoteDetail = () => {
             }
             return note;
         });
+        await new Promise((resolve) => {
+            resolve(dispatch(UpdateUser(GetUserResult.uid, { ...GetUserResult, notes: updatedNotes })));
+        });
+        setSnackbar((prevState) => ({
+            ...prevState,
+            open: true,
+        }));
+        setIsEdit(false);
+        dispatch(ResetUpdate());
+    };
 
-        dispatch(UpdateUser(GetUserResult.uid, { ...GetUserResult, notes: updatedNotes }));
-        // console.log(updatedNote);
-        // console.log(updatedNotes);
+    const handleClickDelete = async () => {
+        const updateNotes = GetUserResult.notes.filter((note) => {
+            return note.uid !== noteId;
+        });
+        await new Promise((resolve) => {
+            resolve(dispatch(UpdateUser(GetUserResult.uid, { ...GetUserResult, notes: updateNotes })));
+        });
+        navigate("/notes");
     };
 
     const handleClickCancel = () => {
@@ -90,7 +103,7 @@ const NoteDetail = () => {
         if (GetUserResult) {
             const { notes } = GetUserResult;
             notes.forEach((note) => {
-                if (note.uid === parseInt(noteId)) {
+                if (note.uid === noteId) {
                     setNote(note);
                     setTitleValue(note.title);
                     setBodyText(note.bodyText);
@@ -99,16 +112,16 @@ const NoteDetail = () => {
         }
     }, [GetUserResult]);
 
-    useEffect(() => {
-        if (UpdateUserResult) {
-            setSnackbar((prevState) => ({
-                ...prevState,
-                open: true,
-            }));
-            setIsEdit(false);
-            dispatch(ResetUpdate());
-        }
-    }, [UpdateUserResult]);
+    // useEffect(() => {
+    //     if (UpdateUserResult) {
+    //         setSnackbar((prevState) => ({
+    //             ...prevState,
+    //             open: true,
+    //         }));
+    //         setIsEdit(false);
+    //         dispatch(ResetUpdate());
+    //     }
+    // }, [UpdateUserResult]);
 
     return (
         <LayoutMain>
@@ -128,7 +141,7 @@ const NoteDetail = () => {
                                         <Button variant="outlined" sx={{ mx: 1 }} color="info" onClick={() => setIsEdit(true)}>
                                             Edit
                                         </Button>
-                                        <Button variant="outlined" sx={{ mx: 1 }} color="warning">
+                                        <Button variant="outlined" sx={{ mx: 1 }} color="warning" onClick={() => handleClickDelete()}>
                                             Delete
                                         </Button>
                                     </>

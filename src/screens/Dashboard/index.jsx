@@ -43,7 +43,7 @@ const Dashboard = () => {
                 bodyText,
                 timestamp: Date.now(),
                 bgColor: "#FFF",
-                uid: notes.length + 1,
+                uid: btoa(Date.now().toString()),
             };
             const updatedData = {
                 ...GetUserResult,
