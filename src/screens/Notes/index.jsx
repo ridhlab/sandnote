@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // MUI
 import { Box, Typography, Grid, Button } from "@mui/material";
@@ -19,6 +19,14 @@ const Notes = () => {
 
     const { notes } = GetUserResult;
 
+    const [sortedNotes, setSortedNotes] = useState([]);
+
+    useEffect(() => {
+        if (notes !== undefined) {
+            setSortedNotes(notes.sort((a, b) => b.timestamp - a.timestamp));
+        }
+    }, [notes]);
+
     return (
         <LayoutMain>
             {GetUserLoading && <Box>Loading</Box>}
@@ -28,8 +36,8 @@ const Notes = () => {
                         <Box>Notes Empty</Box>
                     ) : (
                         <Grid container spacing={2}>
-                            {notes.map((note, idx) => {
-                                const { title } = note;
+                            {sortedNotes.map((note, idx) => {
+                                const { title, uid } = note;
                                 let { bgColor } = note;
                                 bgColor = bgColor.toLowerCase();
                                 return (
@@ -38,7 +46,7 @@ const Notes = () => {
                                             <Box height={25} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" width="100%">
                                                 <Typography>{title}</Typography>
                                             </Box>
-                                            <Button variant="outlined" onClick={() => navigate(`/notes/${idx + 1}`)}>
+                                            <Button variant="outlined" onClick={() => navigate(`/notes/${uid}`)}>
                                                 See Note
                                             </Button>
                                         </Box>
