@@ -68,7 +68,7 @@ const Dashboard = () => {
             };
             const updatedData = {
                 ...GetUserResult,
-                notes: [...notes, newNote],
+                notes: notes.length === 0 ? [newNote] : [...notes, newNote],
             };
             dispatch(UpdateUser(uid, updatedData));
         }
