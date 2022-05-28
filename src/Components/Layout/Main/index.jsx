@@ -5,6 +5,7 @@ import { Box, CssBaseline, Toolbar } from "@mui/material";
 
 // Components
 import Navbar from "../../Navbar";
+import Footer from "../../Footer";
 
 // Context
 import { useAuth } from "../../../context/AuthContext";
@@ -22,20 +23,23 @@ const LayoutMain = ({ children }) => {
     };
 
     return (
-        <Box sx={{ display: "flex" }}>
-            <CssBaseline />
-            <Navbar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
-            {/* Drawer */}
-            {isLogin && (
-                <>
-                    <ResponsiveDrawer drawerWidth={drawerWidth} mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
-                    {/* Main App */}
-                    <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "100%" }}>
-                        <Toolbar />
-                        {children}
-                    </Box>
-                </>
-            )}
+        <Box>
+            <Box sx={{ display: "flex" }}>
+                <CssBaseline />
+                <Navbar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
+                {/* Drawer */}
+                {isLogin && (
+                    <>
+                        <ResponsiveDrawer drawerWidth={drawerWidth} mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+                        {/* Main App */}
+                        <Box component="main" sx={{ flexGrow: 1, p: 3, maxWidth: "100%" }}>
+                            <Toolbar />
+                            {children}
+                        </Box>
+                    </>
+                )}
+            </Box>
+            <Footer drawerWidth={drawerWidth} />
         </Box>
     );
 };

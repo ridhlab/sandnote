@@ -22,6 +22,7 @@ import { useAuth } from "../../context/AuthContext";
 // Redux
 import { useDispatch } from "react-redux";
 import { CheckUser } from "../../service/redux/action";
+import Footer from "../../Components/Footer";
 
 const LandingPage = () => {
     const { signInWithGoogle, isLogin, isLoadingAuth } = useAuth();
@@ -57,8 +58,8 @@ const LandingPage = () => {
         <Box>
             <Navbar />
             {!isLoadingAuth && (
-                <Box mt={14}>
-                    <Box my={8}>
+                <Box mt={14} mb={6}>
+                    <Box my={4}>
                         <img src={SandNoteIllustration} alt="sandnote-hero" width={500} className={styles.img} />
                     </Box>
                     <Box display="flex" justifyContent="center">
@@ -88,6 +89,7 @@ const LandingPage = () => {
                     </Box>
                 </Box>
             )}
+            <Footer />
         </Box>
     );
 };

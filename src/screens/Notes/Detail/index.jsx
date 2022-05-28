@@ -112,17 +112,6 @@ const NoteDetail = () => {
         }
     }, [GetUserResult]);
 
-    // useEffect(() => {
-    //     if (UpdateUserResult) {
-    //         setSnackbar((prevState) => ({
-    //             ...prevState,
-    //             open: true,
-    //         }));
-    //         setIsEdit(false);
-    //         dispatch(ResetUpdate());
-    //     }
-    // }, [UpdateUserResult]);
-
     return (
         <LayoutMain>
             {GetUserLoading && <Box>Loading...</Box>}
