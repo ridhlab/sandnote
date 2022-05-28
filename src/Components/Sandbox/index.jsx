@@ -48,9 +48,9 @@ const Sandbox = React.memo(({ titleValue, bodyText, handleChangeTitle, handleCha
                         onChange={(e) => handleChangeBodyText(e.target.value)}
                     />
                 </Box>
-                <Box width={{ sm: "100%", md: "50%" }} px={2} height={{ xs: "auto", md: "100%" }}>
+                <Box width={{ sm: "100%", md: "50%" }} px={2} height={{ xs: 450, md: "100%" }}>
                     <Typography variant="h6">Preview</Typography>
-                    <Box className={styles.wrapperMdPreview}>
+                    <Box className={styles.wrapperMdPreview} height="100%">
                         <ReactMarkdown children={bodyText} remarkPlugins={[remarkGfm]} />
                     </Box>
                 </Box>

@@ -76,7 +76,7 @@ const Dashboard = () => {
 
     return (
         <LayoutMain>
-            <Box>
+            <Box pb={6}>
                 <Sandbox titleValue={titleValue} bodyText={bodyText} handleChangeTitle={handleChangeTitle} handleChangeBodyText={handleChangeBodyText} />
                 <Button variant="contained" sx={{ textTransform: "none" }} fullWidth onClick={() => handleClickAddNotes(titleValue, bodyText)}>
                     Add Notes
