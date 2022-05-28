@@ -8,6 +8,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Help from "./screens/Help";
 import Notes from "./screens/Notes";
 import NoteDetail from "./screens/Notes/Detail";
+import { PageNotFound } from "./screens/NotFound";
 
 const App = () => {
     return (
@@ -47,6 +48,7 @@ const App = () => {
                     }
                 />
             </Route>
+            <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
 };

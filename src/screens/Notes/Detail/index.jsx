@@ -20,9 +20,12 @@ import Alert from "../../../Components/Alert";
 
 // Library
 import ReactMarkdown from "react-markdown";
+import { NotFoundMessage } from "../../NotFound";
 
 const NoteDetail = () => {
     const [isEdit, setIsEdit] = useState(false);
+
+    const [isNoteIdValid, setIsNoteIdValid] = useState(true);
 
     const [titleValue, setTitleValue] = useState("");
 
@@ -99,14 +102,19 @@ const NoteDetail = () => {
         }));
     };
 
+    console.log(isNoteIdValid);
     useEffect(() => {
         if (GetUserResult) {
             const { notes } = GetUserResult;
-            notes.forEach((note) => {
+            notes.forEach((note, idx) => {
                 if (note.uid === noteId) {
                     setNote(note);
                     setTitleValue(note.title);
                     setBodyText(note.bodyText);
+                } else {
+                    if (idx === notes.length - 1) {
+                        setIsNoteIdValid(false);
+                    }
                 }
             });
         }
@@ -117,57 +125,63 @@ const NoteDetail = () => {
             {GetUserLoading && <Box>Loading...</Box>}
             {GetUserResult && (
                 <>
-                    <Box>
-                        <Box display="flex" my={2} justifyContent={isEdit ? "flex-end" : "space-between"} alignItems="center">
-                            {!isEdit && (
-                                <Box component="span" sx={{ ":hover": { cursor: "pointer" } }} onClick={() => navigate(-1)}>
-                                    <AiOutlineRollback />
-                                </Box>
-                            )}
+                    {isNoteIdValid ? (
+                        <>
                             <Box>
-                                {!isEdit ? (
-                                    <>
-                                        <Button variant="outlined" sx={{ mx: 1 }} color="info" onClick={() => setIsEdit(true)}>
-                                            Edit
-                                        </Button>
-                                        <Button variant="outlined" sx={{ mx: 1 }} color="warning" onClick={() => handleClickDelete()}>
-                                            Delete
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button variant="outlined" color="warning" sx={{ mx: 1 }} onClick={() => handleClickCancel()}>
-                                            Cancel
-                                        </Button>
-                                        <Button variant="outlined" color="info" sx={{ mx: 1 }} onClick={() => handleClickUpdate()}>
-                                            Update
-                                        </Button>
-                                    </>
-                                )}
+                                <Box display="flex" my={2} justifyContent={isEdit ? "flex-end" : "space-between"} alignItems="center">
+                                    {!isEdit && (
+                                        <Box component="span" sx={{ ":hover": { cursor: "pointer" } }} onClick={() => navigate(-1)}>
+                                            <AiOutlineRollback />
+                                        </Box>
+                                    )}
+                                    <Box>
+                                        {!isEdit ? (
+                                            <>
+                                                <Button variant="outlined" sx={{ mx: 1 }} color="info" onClick={() => setIsEdit(true)}>
+                                                    Edit
+                                                </Button>
+                                                <Button variant="outlined" sx={{ mx: 1 }} color="warning" onClick={() => handleClickDelete()}>
+                                                    Delete
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button variant="outlined" color="warning" sx={{ mx: 1 }} onClick={() => handleClickCancel()}>
+                                                    Cancel
+                                                </Button>
+                                                <Button variant="outlined" color="info" sx={{ mx: 1 }} onClick={() => handleClickUpdate()}>
+                                                    Update
+                                                </Button>
+                                            </>
+                                        )}
+                                    </Box>
+                                </Box>
+                                <Box>
+                                    {!isEdit ? (
+                                        <>
+                                            <Typography variant="h4">{note.title}</Typography>
+                                            <Divider />
+                                            <ReactMarkdown children={note.bodyText} />
+                                        </>
+                                    ) : (
+                                        <Sandbox
+                                            titleValue={titleValue}
+                                            bodyText={bodyText}
+                                            handleChangeTitle={handleChangeTitle}
+                                            handleChangeBodyText={handleChangeBodyText}
+                                        />
+                                    )}
+                                </Box>
                             </Box>
-                        </Box>
-                        <Box>
-                            {!isEdit ? (
-                                <>
-                                    <Typography variant="h4">{note.title}</Typography>
-                                    <Divider />
-                                    <ReactMarkdown children={note.bodyText} />
-                                </>
-                            ) : (
-                                <Sandbox
-                                    titleValue={titleValue}
-                                    bodyText={bodyText}
-                                    handleChangeTitle={handleChangeTitle}
-                                    handleChangeBodyText={handleChangeBodyText}
-                                />
-                            )}
-                        </Box>
-                    </Box>
-                    <Snackbar open={open} anchorOrigin={{ vertical, horizontal }} autoHideDuration={3000}>
-                        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-                            Note Edited
-                        </Alert>
-                    </Snackbar>
+                            <Snackbar open={open} anchorOrigin={{ vertical, horizontal }} autoHideDuration={3000}>
+                                <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+                                    Note Edited
+                                </Alert>
+                            </Snackbar>
+                        </>
+                    ) : (
+                        <NotFoundMessage />
+                    )}
                 </>
             )}
         </LayoutMain>

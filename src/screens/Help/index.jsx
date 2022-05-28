@@ -4,7 +4,6 @@ import React from "react";
 import { Box } from "@mui/material";
 
 // Components
-import Navbar from "../../Components/Navbar";
 import LayoutMain from "../../Components/Layout/Main";
 
 const Help = () => {

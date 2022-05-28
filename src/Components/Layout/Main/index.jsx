@@ -14,7 +14,7 @@ import ResponsiveDrawer from "../../Drawer";
 const drawerWidth = 240;
 
 const LayoutMain = ({ children }) => {
-    const { isLogin } = useAuth();
+    const { isLogin, isLoadingAuth } = useAuth();
 
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -39,7 +39,7 @@ const LayoutMain = ({ children }) => {
                     </>
                 )}
             </Box>
-            <Footer drawerWidth={drawerWidth} />
+            {!isLoadingAuth && <Footer drawerWidth={drawerWidth} />}
         </Box>
     );
 };
