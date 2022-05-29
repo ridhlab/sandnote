@@ -59,8 +59,10 @@ const LandingPage = () => {
             <Navbar />
             {!isLoadingAuth && (
                 <Box mt={14} mb={6}>
-                    <Box my={4}>
-                        <img src={SandNoteIllustration} alt="sandnote-hero" width={500} className={styles.img} />
+                    <Box my={{ xs: 20, md: 2 }}>
+                        <Box my={4} width={{ xs: 250, md: 500 }} margin="auto">
+                            <img src={SandNoteIllustration} alt="sandnote-hero" className={styles.img} />
+                        </Box>
                     </Box>
                     <Box display="flex" justifyContent="center">
                         <Button
