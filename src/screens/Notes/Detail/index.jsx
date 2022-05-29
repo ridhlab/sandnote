@@ -106,17 +106,18 @@ const NoteDetail = () => {
     useEffect(() => {
         if (GetUserResult) {
             const { notes } = GetUserResult;
-            notes.forEach((note, idx) => {
-                if (note.uid === noteId) {
-                    setNote(note);
-                    setTitleValue(note.title);
-                    setBodyText(note.bodyText);
+            for (let i = 0; i < notes.length; i++) {
+                if (notes[i].uid === noteId) {
+                    setNote(notes[i]);
+                    setTitleValue(notes[i].title);
+                    setBodyText(notes[i].bodyText);
+                    break;
                 } else {
-                    if (idx === notes.length - 1) {
+                    if (i === notes.length - 1) {
                         setIsNoteIdValid(false);
                     }
                 }
-            });
+            }
         }
     }, [GetUserResult]);
 

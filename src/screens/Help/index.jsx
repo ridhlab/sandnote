@@ -20,6 +20,7 @@ const Help = () => {
             .then((res) => res.text())
             .then((md) => setMdContent(md));
     }, []);
+    
     return (
         <LayoutMain>
             <Box display={{ xs: "block", md: "flex" }} pb={8}>
