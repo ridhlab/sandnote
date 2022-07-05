@@ -37,7 +37,6 @@ const Notes = () => {
                     ) : (
                         <Grid container spacing={2}>
                             {sortedNotes.map((note, idx) => {
-                                console.log(note);
                                 const { title, uid } = note;
                                 let { bgColor } = note;
                                 bgColor = bgColor.toLowerCase();

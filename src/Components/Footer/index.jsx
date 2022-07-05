@@ -14,7 +14,7 @@ const Footer = React.memo(({ drawerWidth }) => {
             <Box display="flex" justifyContent={{ sm: "flex-end" }}>
                 <Box bgcolor="primary.main" py={2} sx={{ width: { xs: "100%", sm: `calc(100% - ${drawerWidth}px)` } }} textAlign="center" color="white">
                     &copy;{" "}
-                    <Link href="https://www.github.com/ridlwan17" color="inherit" underline="hover" target="_blank">
+                    <Link href="https://www.github.com/ridhlab" color="inherit" underline="hover" target="_blank">
                         Muhammad Ridwan
                     </Link>{" "}
                     | 2022
